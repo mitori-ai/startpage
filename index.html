@@ -7,73 +7,271 @@
     <link rel="stylesheet" href="css/design-tokens.css">
     <style>
       * {
+        box-sizing: border-box;
         margin: 0;
         padding: 0;
-        box-sizing: border-box;
+      }
+
+      html {
+        min-height: 100%;
       }
 
       body {
-        font-family: var(--font);
-        background: var(--bg);
-        color: var(--text-primary);
         min-height: 100vh;
-        padding: 0;
+        font-family: var(--font-sans);
+        background:
+          radial-gradient(circle at 88% 18%, rgba(192, 57, 43, 0.12), transparent 24%),
+          linear-gradient(180deg, rgba(247, 247, 245, 0.96) 0%, rgba(255, 255, 255, 1) 50%, rgba(247, 247, 245, 1) 100%);
+        color: var(--text-body);
+        position: relative;
+        overflow-x: hidden;
       }
 
-      .header {
-        padding: 40px 48px 24px;
-        max-width: 1400px;
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        background-image:
+          linear-gradient(rgba(26, 26, 24, 0.06) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(26, 26, 24, 0.06) 1px, transparent 1px);
+        background-size: 72px 72px;
+        mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.28), transparent 92%);
+        opacity: 0.5;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      button,
+      input {
+        font: inherit;
+      }
+
+      .page-shell {
+        position: relative;
+        z-index: 1;
+        max-width: 1440px;
         margin: 0 auto;
+        padding: 28px 24px 48px;
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: minmax(0, 1.05fr) minmax(320px, 460px);
+        gap: 28px;
+        align-items: stretch;
+        padding: clamp(24px, 4vw, 40px);
+        border: 1px solid var(--border);
+        border-radius: 30px;
+        background: rgba(255, 255, 255, 0.82);
+        box-shadow: var(--shadow-soft);
+        backdrop-filter: blur(10px);
+      }
+
+      .hero-copy {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 24px;
+      }
+
+      .eyebrow-row,
+      .hero-stats,
+      .hero-panel-stats,
+      .section-heading {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        align-items: center;
+      }
+
+      .eyebrow,
+      .hero-pill,
+      .hero-stat,
+      .panel-stat,
+      .section-label,
+      .category-index,
+      .category-count,
+      .link-host,
+      .results-pill,
+      .status-pill {
+        border-radius: var(--radius-pill);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .eyebrow,
+      .hero-pill,
+      .section-label,
+      .status-pill {
+        font-size: 0.76rem;
+        line-height: 1;
+        font-weight: 600;
+        padding: 0.72rem 0.95rem;
+      }
+
+      .eyebrow {
+        background: var(--accent-soft);
+        color: var(--accent);
+      }
+
+      .status-pill {
+        background: rgba(26, 122, 74, 0.09);
+        color: var(--success);
       }
 
       .greeting {
-        font-size: 14px;
-        color: var(--text-secondary);
-        margin-bottom: 8px;
+        font-size: 0.92rem;
+        color: var(--text-muted);
         font-weight: 500;
-        letter-spacing: 0.3px;
       }
 
       .title {
-        font-size: 42px;
-        font-weight: 700;
-        background: var(--gradient-text);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        margin-bottom: 4px;
+        margin-top: 14px;
+        font-family: var(--font-serif);
+        font-size: clamp(3rem, 6vw, 5.2rem);
+        line-height: 0.98;
+        letter-spacing: -0.04em;
+        color: var(--text-strong);
+      }
+
+      .title-accent {
+        color: var(--accent);
       }
 
       .subtitle {
-        font-size: 16px;
-        color: var(--text-secondary);
-        font-weight: 400;
+        margin-top: 14px;
+        max-width: 52rem;
+        font-size: clamp(1.05rem, 2vw, 1.22rem);
+        line-height: 1.65;
+        color: var(--text-body);
       }
 
-      .search-container {
-        padding: 20px 48px;
-        max-width: 1400px;
-        margin: 0 auto;
-      }
-
-      .search {
-        width: 100%;
-        padding: 12px 16px 12px 40px;
-        border-radius: var(--radius);
+      .hero-stat,
+      .panel-stat {
+        padding: 0.85rem 1rem;
         border: 1px solid var(--border);
-        background: var(--bg-search);
-        color: var(--text-primary);
-        font-size: 14px;
-        outline: none;
-        transition: border-color var(--transition);
+        background: var(--bg-card-soft);
+        box-shadow: var(--shadow-inset);
       }
 
-      .search::placeholder {
-        color: var(--text-secondary);
+      .hero-stat strong,
+      .panel-stat strong {
+        display: block;
+        color: var(--text-strong);
+        font-size: 0.94rem;
+        letter-spacing: normal;
+        text-transform: none;
       }
 
-      .search:focus {
-        border-color: var(--accent-blue);
-        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+      .hero-stat span,
+      .panel-stat span {
+        display: block;
+        margin-top: 0.2rem;
+        color: var(--text-muted);
+        font-size: 0.72rem;
+        letter-spacing: 0.08em;
+      }
+
+      .hero-panel {
+        min-width: 0;
+      }
+
+      .hero-panel-window {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+        overflow: hidden;
+        border-radius: var(--radius-lg);
+        border: 1px solid rgba(26, 26, 24, 0.1);
+        background: var(--bg-card);
+        box-shadow: var(--shadow-card);
+      }
+
+      .window-bar {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 14px 18px;
+        border-bottom: 1px solid var(--border);
+        background: var(--bg-page-alt);
+      }
+
+      .window-dots {
+        display: flex;
+        gap: 7px;
+        align-items: center;
+      }
+
+      .window-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+      }
+
+      .window-dot.red {
+        background: #ff5f57;
+      }
+
+      .window-dot.yellow {
+        background: #ffbd2e;
+      }
+
+      .window-dot.green {
+        background: #28c840;
+      }
+
+      .window-title {
+        flex: 1;
+        min-width: 0;
+        padding: 0.55rem 0.75rem;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        background: var(--bg-card);
+        color: var(--text-muted);
+        font-size: 0.72rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .results-pill {
+        padding: 0.5rem 0.85rem;
+        background: rgba(26, 122, 74, 0.1);
+        color: var(--success);
+        font-size: 0.68rem;
+        font-weight: 700;
+      }
+
+      .hero-panel-body {
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+        padding: 0 18px 18px;
+      }
+
+      .hero-panel-copy h2 {
+        font-family: var(--font-serif);
+        font-size: clamp(1.9rem, 3vw, 2.6rem);
+        line-height: 1.02;
+        letter-spacing: -0.03em;
+        color: var(--text-strong);
+      }
+
+      .hero-panel-copy p {
+        margin-top: 8px;
+        color: var(--text-muted);
+        font-size: 0.96rem;
+        line-height: 1.6;
+      }
+
+      .hero-panel-stats {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
       }
 
       .search-wrapper {
@@ -82,103 +280,170 @@
 
       .search-icon {
         position: absolute;
-        left: 14px;
+        left: 18px;
         top: 50%;
         transform: translateY(-50%);
-        color: var(--text-secondary);
-        font-size: 16px;
+        color: var(--accent);
+        font-size: 1rem;
+        pointer-events: none;
       }
 
-      .time {
-        font-size: 13px;
-        color: var(--text-secondary);
-        margin-left: 8px;
+      .search {
+        width: 100%;
+        padding: 1rem 1.1rem 1rem 3rem;
+        border-radius: 18px;
+        border: 1px solid var(--border);
+        background: linear-gradient(180deg, rgba(255, 255, 255, 1), rgba(247, 247, 245, 0.9));
+        color: var(--text-strong);
+        outline: none;
+        transition: border-color var(--transition), box-shadow var(--transition), transform var(--transition);
+        box-shadow: var(--shadow-inset);
+      }
+
+      .search::placeholder {
+        color: var(--text-muted);
+      }
+
+      .search:focus {
+        border-color: rgba(192, 57, 43, 0.35);
+        box-shadow: 0 0 0 4px rgba(192, 57, 43, 0.08);
+        transform: translateY(-1px);
       }
 
       .main {
-        padding: 0 48px 48px;
-        max-width: 1400px;
-        margin: 0 auto;
+        margin-top: 28px;
+      }
+
+      .section-heading {
+        justify-content: space-between;
+        gap: 20px;
+        margin-bottom: 18px;
+      }
+
+      .section-heading h2 {
+        margin-top: 10px;
+        font-family: var(--font-serif);
+        font-size: clamp(2rem, 3vw, 3rem);
+        line-height: 1.08;
+        letter-spacing: -0.03em;
+        color: var(--text-strong);
+      }
+
+      .section-heading p {
+        max-width: 32rem;
+        color: var(--text-muted);
+        line-height: 1.65;
+      }
+
+      .section-label {
+        background: var(--bg-card-soft);
+        color: var(--text-muted);
+        border: 1px solid var(--border);
       }
 
       .grid {
         display: grid;
-        gap: 16px;
-        grid-template-columns: repeat(4, minmax(250px, 1fr));
+        gap: 18px;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
       }
 
       .category {
-        background: var(--bg-card);
-        border-radius: var(--radius);
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+        min-width: 0;
+        padding: 22px;
         border: 1px solid var(--border);
-        padding: 20px;
-        transition: border-color var(--transition), background var(--transition);
+        border-radius: var(--radius-lg);
+        background: rgba(255, 255, 255, 0.92);
+        box-shadow: var(--shadow-card);
+        transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
       }
 
       .category:hover {
-        border-color: var(--border-hover);
+        transform: translateY(-4px);
+        border-color: rgba(192, 57, 43, 0.24);
+        box-shadow: var(--shadow-hover);
       }
 
       .category[data-span="2"] {
         grid-column: span 2;
       }
 
-      .category-header {
+      .category-topline {
         display: flex;
         align-items: center;
-        gap: 10px;
-        margin-bottom: 16px;
-        padding-bottom: 12px;
-        border-bottom: 1px solid var(--border);
+        justify-content: space-between;
+        gap: 12px;
       }
 
-      .category-title {
-        font-size: 15px;
-        font-weight: 600;
-        color: var(--text-primary);
+      .category-index,
+      .category-count,
+      .link-host {
+        font-size: 0.68rem;
+        font-weight: 700;
+      }
+
+      .category-index {
+        color: rgba(26, 26, 24, 0.2);
       }
 
       .category-count {
-        font-size: 11px;
-        color: var(--text-secondary);
-        background: rgba(255,255,255,0.05);
-        padding: 2px 8px;
-        border-radius: 99px;
-        font-weight: 500;
+        padding: 0.38rem 0.72rem;
+        background: var(--accent-soft);
+        color: var(--accent);
+      }
+
+      .category-header h3 {
+        font-family: var(--font-serif);
+        font-size: 1.7rem;
+        line-height: 1.05;
+        letter-spacing: -0.03em;
+        color: var(--text-strong);
+      }
+
+      .category-header p {
+        margin-top: 7px;
+        color: var(--text-muted);
+        line-height: 1.55;
       }
 
       .links {
         display: flex;
         flex-direction: column;
-        gap: 6px;
+        gap: 10px;
       }
 
       .link-card {
         display: flex;
         align-items: center;
         gap: 12px;
-        padding: 10px 12px;
-        border-radius: var(--radius-sm);
-        text-decoration: none;
-        color: var(--text-link);
-        transition: background var(--transition), color var(--transition);
+        min-width: 0;
+        padding: 12px 14px;
+        border: 1px solid transparent;
+        border-radius: var(--radius-md);
+        background: linear-gradient(180deg, rgba(247, 247, 245, 0.76), rgba(255, 255, 255, 0.96));
+        transition: transform var(--transition), border-color var(--transition), background var(--transition), box-shadow var(--transition);
       }
 
       .link-card:hover {
-        background: var(--bg-glow);
-        color: var(--accent-blue);
+        transform: translateX(3px);
+        border-color: rgba(192, 57, 43, 0.16);
+        background: linear-gradient(180deg, rgba(253, 236, 234, 0.72), rgba(255, 255, 255, 1));
+        box-shadow: 0 16px 34px -28px rgba(26, 26, 24, 0.25);
       }
 
       .link-icon {
-        width: 36px;
-        height: 36px;
+        width: 44px;
+        height: 44px;
+        flex-shrink: 0;
         display: flex;
         align-items: center;
         justify-content: center;
-        background: rgba(255,255,255,0.04);
-        border-radius: 8px;
-        font-size: 16px;
-        flex-shrink: 0;
+        border-radius: 16px;
+        background: var(--accent-soft);
+        color: var(--accent);
+        font-size: 1.15rem;
       }
 
       .link-info {
@@ -187,199 +452,418 @@
       }
 
       .link-title {
-        font-size: 13px;
-        font-weight: 500;
+        color: var(--text-strong);
+        font-weight: 600;
+        font-size: 0.96rem;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
       }
 
       .link-desc {
-        font-size: 11px;
-        color: var(--text-secondary);
+        margin-top: 3px;
+        color: var(--text-muted);
+        font-size: 0.84rem;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
       }
 
+      .link-meta {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 8px;
+        flex-shrink: 0;
+      }
+
+      .link-host {
+        padding: 0.32rem 0.62rem;
+        background: rgba(26, 26, 24, 0.05);
+        color: var(--text-muted);
+      }
+
       .link-arrow {
-        color: var(--text-secondary);
+        color: var(--accent);
+        font-size: 1rem;
+        transform: translateX(-3px);
         opacity: 0;
-        transform: translateX(-4px);
-        transition: all var(--transition);
-        font-size: 13px;
+        transition: transform var(--transition), opacity var(--transition);
       }
 
       .link-card:hover .link-arrow {
-        opacity: 1;
         transform: translateX(0);
+        opacity: 1;
       }
 
       .empty-state {
-        text-align: center;
-        padding: 64px 0;
-        color: var(--text-secondary);
         display: none;
+        margin-top: 18px;
+        padding: 42px 24px;
+        text-align: center;
+        border: 1px dashed var(--border-strong);
+        border-radius: var(--radius-lg);
+        background: rgba(255, 255, 255, 0.72);
       }
 
       .empty-state h3 {
-        font-size: 18px;
-        font-weight: 500;
-        margin-bottom: 8px;
-        color: var(--text-primary);
+        font-family: var(--font-serif);
+        font-size: 2rem;
+        color: var(--text-strong);
+      }
+
+      .empty-state p {
+        margin-top: 10px;
+        color: var(--text-muted);
       }
 
       .footer {
-        text-align: center;
-        padding: 24px;
-        color: var(--text-secondary);
-        font-size: 12px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 12px 24px;
+        margin-top: 28px;
+        padding: 24px 4px 0;
+        border-top: 1px solid rgba(221, 221, 216, 0.9);
+        color: var(--text-muted);
+        font-size: 0.82rem;
       }
 
-      @media (max-width: 1024px) {
-        .grid {
-          grid-template-columns: repeat(2, minmax(250px, 1fr));
+      .footer strong {
+        color: var(--text-body);
+      }
+
+      @media (max-width: 1180px) {
+        .hero {
+          grid-template-columns: 1fr;
         }
+
+        .grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
         .category[data-span="2"] {
           grid-column: span 2;
         }
       }
 
-      @media (max-width: 640px) {
+      @media (max-width: 780px) {
+        .page-shell {
+          padding: 18px 14px 34px;
+        }
+
+        .hero {
+          padding: 20px;
+          border-radius: 24px;
+        }
+
+        .hero-panel-stats {
+          grid-template-columns: 1fr;
+        }
+
+        .section-heading {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
         .grid {
           grid-template-columns: 1fr;
         }
+
         .category[data-span="2"] {
           grid-column: span 1;
         }
-        .header, .search-container, .main {
-          padding-left: 20px;
-          padding-right: 20px;
+
+        .category,
+        .empty-state {
+          border-radius: 22px;
         }
-        .title {
-          font-size: 28px;
+      }
+
+      @media (max-width: 560px) {
+        .window-bar {
+          flex-wrap: wrap;
+        }
+
+        .window-title {
+          min-width: 100%;
+          order: 3;
+        }
+
+        .link-card {
+          align-items: flex-start;
+        }
+
+        .link-meta {
+          align-items: flex-start;
         }
       }
     </style>
   </head>
   <body>
-    <div class="header">
-      <div class="greeting" id="greeting"></div>
-      <h1 class="title">StartPage</h1>
-      <p class="subtitle">Operational Hub</p>
-    </div>
+    <div class="page-shell">
+      <header class="hero">
+        <div class="hero-copy">
+          <div>
+            <div class="eyebrow-row">
+              <span class="eyebrow">Operational Intelligence for your day</span>
+              <span class="status-pill">Search-ready</span>
+            </div>
+            <p class="greeting" id="greeting"></p>
+            <h1 class="title" id="pageTitle">Start<span class="title-accent">Page</span></h1>
+            <p class="subtitle" id="pageSubtitle">
+              Your most-used destinations, arranged as a calm decision surface.
+            </p>
+          </div>
 
-    <div class="search-container">
-      <div class="search-wrapper">
-        <span class="search-icon">🔍</span>
-        <input type="text" class="search" id="search" placeholder="Search links...">
-      </div>
-    </div>
+          <div class="hero-stats">
+            <div class="hero-stat">
+              <strong id="categoryCount">0 categories</strong>
+              <span>Structured into focused clusters</span>
+            </div>
+            <div class="hero-stat">
+              <strong id="linkCount">0 links</strong>
+              <span>One-hop access across the workspace</span>
+            </div>
+            <div class="hero-stat">
+              <strong>Fast payoff</strong>
+              <span>Mitori-inspired editorial system</span>
+            </div>
+          </div>
+        </div>
 
-    <div class="main">
-      <div class="grid" id="grid"></div>
-      <div class="empty-state" id="empty">
-        <h3>No results found</h3>
-        <p>Try a different search term</p>
-      </div>
-    </div>
+        <aside class="hero-panel">
+          <div class="hero-panel-window">
+            <div class="window-bar">
+              <div class="window-dots" aria-hidden="true">
+                <span class="window-dot red"></span>
+                <span class="window-dot yellow"></span>
+                <span class="window-dot green"></span>
+              </div>
+              <span class="window-title">app.startpage.local / operational-surface</span>
+              <span class="results-pill"><span id="visibleCount">0</span> visible</span>
+            </div>
 
-    <div class="footer">
-      <p>StartPage — <span id="year"></span></p>
+            <div class="hero-panel-body">
+              <div class="hero-panel-copy">
+                <h2>Know where you need to go before you click.</h2>
+                <p>
+                  The content stays yours. The interface now borrows Mitori’s warm editorial palette,
+                  restrained borders, and decision-surface rhythm.
+                </p>
+              </div>
+
+              <div class="hero-panel-stats">
+                <div class="panel-stat">
+                  <strong id="clock">--:--</strong>
+                  <span>Local time</span>
+                </div>
+                <div class="panel-stat">
+                  <strong id="searchState">All links</strong>
+                  <span>Filter status</span>
+                </div>
+                <div class="panel-stat">
+                  <strong>Live</strong>
+                  <span>Instant search + external launch</span>
+                </div>
+              </div>
+
+              <div class="search-wrapper">
+                <span class="search-icon">⌕</span>
+                <input type="text" class="search" id="search" placeholder="Search links, tools, or categories...">
+              </div>
+            </div>
+          </div>
+        </aside>
+      </header>
+
+      <main class="main">
+        <div class="section-heading">
+          <div>
+            <span class="section-label">Workspace categories</span>
+            <h2>Everything that matters, one hop away.</h2>
+          </div>
+          <p>
+            Categories keep their original behavior, but the visual system now follows Mitori’s softer surfaces,
+            serif hierarchy, terracotta accent, and utility-card structure.
+          </p>
+        </div>
+
+        <div class="grid" id="grid"></div>
+        <div class="empty-state" id="empty">
+          <h3>No results found</h3>
+          <p>Try a different search term to bring your decision surface back into focus.</p>
+        </div>
+      </main>
+
+      <footer class="footer">
+        <p><strong id="footerTitle">StartPage</strong> — <span id="year"></span></p>
+        <p>Design tokens adapted from mitori.ai’s live homepage palette and type hierarchy.</p>
+      </footer>
     </div>
 
     <script>
       const DATA_URL = 'data/links.json';
+      const searchEl = document.getElementById('search');
+      const emptyState = document.getElementById('empty');
+      const greetingEl = document.getElementById('greeting');
+      const clockEl = document.getElementById('clock');
+      const visibleCountEl = document.getElementById('visibleCount');
+      const searchStateEl = document.getElementById('searchState');
+      const categoryCountEl = document.getElementById('categoryCount');
+      const linkCountEl = document.getElementById('linkCount');
+      const pageTitleEl = document.getElementById('pageTitle');
+      const pageSubtitleEl = document.getElementById('pageSubtitle');
+      const footerTitleEl = document.getElementById('footerTitle');
+      const gridEl = document.getElementById('grid');
+      let searchTimeout;
 
       function getGreeting() {
-        const h = new Date().getHours();
-        if (h < 12) return 'Good morning';
-        if (h < 17) return 'Good afternoon';
+        const hour = new Date().getHours();
+        if (hour < 12) return 'Good morning';
+        if (hour < 17) return 'Good afternoon';
         return 'Good evening';
       }
 
       function formatClock() {
-        const d = new Date();
-        const hh = d.getHours() % 12 || 12;
-        const m = d.getMinutes().toString().padStart(2, '0');
-        const ampm = d.getHours() >= 12 ? 'PM' : 'AM';
-        return `${hh}:${m} ${ampm}`;
+        return new Intl.DateTimeFormat(undefined, {
+          hour: 'numeric',
+          minute: '2-digit'
+        }).format(new Date());
+      }
+
+      function getDomain(url) {
+        try {
+          return new URL(url).hostname.replace(/^www\./, '');
+        } catch {
+          return 'external';
+        }
+      }
+
+      function updateMetaCounts(categories) {
+        const totalLinks = categories.reduce((sum, category) => sum + category.links.length, 0);
+        categoryCountEl.textContent = `${categories.length} categories`;
+        linkCountEl.textContent = `${totalLinks} links`;
+        visibleCountEl.textContent = totalLinks;
+      }
+
+      function updateHeader(global = {}) {
+        const title = global.title || 'StartPage';
+        const subtitle = global.subtitle || 'Operational Hub';
+        const titleMarkup = title.endsWith('Page')
+          ? `${title.slice(0, -4)}<span class="title-accent">Page</span>`
+          : title;
+
+        document.title = title;
+        pageTitleEl.innerHTML = titleMarkup;
+        pageSubtitleEl.textContent = subtitle;
+        footerTitleEl.textContent = title;
       }
 
       function render(categories) {
-        const grid = document.getElementById('grid');
-        grid.innerHTML = '';
+        gridEl.innerHTML = '';
 
-        categories.forEach(cat => {
-          const card = document.createElement('div');
+        categories.forEach((category, index) => {
+          const card = document.createElement('article');
           card.className = 'category';
-          card.dataset.id = cat.id;
-          if (cat.col_span) card.dataset.span = cat.col_span;
+          card.dataset.id = category.id;
+          if (category.col_span) card.dataset.span = category.col_span;
 
-          const linksHTML = cat.links.map(l => `
-            <a href="${l.url}" target="_blank" rel="noopener" class="link-card" data-search="${l.title} ${l.description}">
-              <div class="link-icon">${l.icon}</div>
+          const linksHTML = category.links.map((link) => `
+            <a
+              href="${link.url}"
+              target="_blank"
+              rel="noopener"
+              class="link-card"
+              data-search="${[category.title, category.description, link.title, link.description, getDomain(link.url)].filter(Boolean).join(' ')}"
+            >
+              <div class="link-icon">${link.icon || '↗'}</div>
               <div class="link-info">
-                <div class="link-title">${l.title}</div>
-                <div class="link-desc">${l.description}</div>
+                <div class="link-title">${link.title}</div>
+                <div class="link-desc">${link.description || 'External link'}</div>
               </div>
-              <span class="link-arrow">→</span>
+              <div class="link-meta">
+                <span class="link-host">${getDomain(link.url)}</span>
+                <span class="link-arrow" aria-hidden="true">→</span>
+              </div>
             </a>
           `).join('');
 
           card.innerHTML = `
+            <div class="category-topline">
+              <span class="category-index">${String(index + 1).padStart(2, '0')}</span>
+              <span class="category-count">${category.links.length} links</span>
+            </div>
             <div class="category-header">
-              <span class="category-title">${cat.title}</span>
-              <span class="category-count">${cat.links.length}</span>
+              <h3>${category.title}</h3>
+              <p>${category.description || 'Curated navigation surface'}</p>
             </div>
             <div class="links">${linksHTML}</div>
           `;
 
-          grid.appendChild(card);
+          gridEl.appendChild(card);
         });
       }
 
-      let searchTimeout;
-      const searchEl = document.getElementById('search');
-      const emptyState = document.getElementById('empty');
+      function applySearch(query) {
+        const cards = [...document.querySelectorAll('.category')];
+        let visibleLinks = 0;
+        let visibleCategories = 0;
 
-      searchEl.addEventListener('input', (e) => {
-        clearTimeout(searchTimeout);
-        searchTimeout = setTimeout(() => {
-          const query = e.target.value.trim().toLowerCase();
-          const cards = document.querySelectorAll('.category');
-          let anyVisible = false;
+        cards.forEach((card) => {
+          const links = [...card.querySelectorAll('.link-card')];
+          let categoryVisibleLinks = 0;
 
-          cards.forEach(card => {
-            const links = card.querySelectorAll('.link-card');
-            let visibleCount = 0;
-
-            links.forEach(link => {
-              const data = link.dataset.search.toLowerCase();
-              const match = !query || data.includes(query);
-              link.style.display = match ? 'flex' : 'none';
-              if (match) visibleCount++;
-            });
-
-            card.style.display = visibleCount > 0 ? 'block' : 'none';
-            if (visibleCount > 0) anyVisible = true;
+          links.forEach((link) => {
+            const haystack = link.dataset.search.toLowerCase();
+            const isMatch = !query || haystack.includes(query);
+            link.style.display = isMatch ? 'flex' : 'none';
+            if (isMatch) categoryVisibleLinks += 1;
           });
 
-          emptyState.style.display = anyVisible ? 'none' : 'block';
-        }, 100);
+          card.style.display = categoryVisibleLinks > 0 ? 'flex' : 'none';
+          if (categoryVisibleLinks > 0) {
+            visibleCategories += 1;
+            visibleLinks += categoryVisibleLinks;
+          }
+        });
+
+        visibleCountEl.textContent = visibleLinks;
+        searchStateEl.textContent = query ? `${visibleCategories} groups` : 'All links';
+        emptyState.style.display = visibleLinks > 0 ? 'none' : 'block';
+      }
+
+      function refreshClock() {
+        const clock = formatClock();
+        greetingEl.textContent = `${getGreeting()} — ${clock}`;
+        clockEl.textContent = clock;
+      }
+
+      searchEl.addEventListener('input', (event) => {
+        clearTimeout(searchTimeout);
+        searchTimeout = setTimeout(() => {
+          applySearch(event.target.value.trim().toLowerCase());
+        }, 80);
       });
 
-      // Initialize
-      document.getElementById('greeting').textContent = `${getGreeting()} — ${formatClock()}`;
       document.getElementById('year').textContent = new Date().getFullYear();
-
-      setInterval(() => {
-        document.getElementById('greeting').textContent = `${getGreeting()} — ${formatClock()}`;
-      }, 1000);
+      refreshClock();
+      setInterval(refreshClock, 1000);
 
       fetch(DATA_URL)
-        .then(res => res.json())
-        .then(data => render(data.categories));
+        .then((res) => res.json())
+        .then((data) => {
+          const categories = data.categories || [];
+          updateHeader(data.global || {});
+          updateMetaCounts(categories);
+          render(categories);
+          applySearch('');
+        })
+        .catch(() => {
+          updateMetaCounts([]);
+          render([]);
+          applySearch('');
+        });
     </script>
   </body>
 </html>
