@@ -1,0 +1,108 @@
+{
+  "global": {
+    "title": "StartPage",
+    "subtitle": "Operational Hub",
+    "timezone": "local",
+    "greeting": true,
+    "clock_format": "12h"
+  },
+  "categories": [
+    {
+      "id": "home",
+      "title": "Home",
+      "description": "Primary entry points",
+      "col_span": 2,
+      "links": [
+        {"url": "https://www.google.com", "title": "Google", "description": "Search engine", "icon": "🔍"},
+        {"url": "https://mail.google.com", "title": "Gmail", "description": "Email", "icon": "✉️"},
+        {"url": "https://calendar.google.com", "title": "Google Calendar", "description": "Schedule", "icon": "📅"},
+        {"url": "https://drive.google.com", "title": "Google Drive", "description": "Cloud storage", "icon": "📁"}
+      ]
+    },
+    {
+      "id": "apps",
+      "title": "Applications",
+      "description": "Daily SaaS tools",
+      "col_span": 2,
+      "links": [
+        {"url": "https://slack.com", "title": "Slack", "description": "Team messaging", "icon": "💬"},
+        {"url": "https://www.notion.so", "title": "Notion", "description": "Workspace", "icon": "📝"},
+        {"url": "https://linear.app", "title": "Linear", "description": "Issue tracking", "icon": "🔗"},
+        {"url": "https://figma.com", "title": "Figma", "description": "Design tool", "icon": "🎨"},
+        {"url": "https://www.dropbox.com", "title": "Dropbox", "description": "File sync", "icon": "📦"}
+      ]
+    },
+    {
+      "id": "code",
+      "title": "Code & Repos",
+      "description": "Development platforms",
+      "col_span": 2,
+      "links": [
+        {"url": "https://github.com", "title": "GitHub", "description": "Code hosting", "icon": "🐙"},
+        {"url": "https://gitlab.com", "title": "GitLab", "description": "DevOps platform", "icon": "🦊"},
+        {"url": "https://stackblitz.com", "title": "StackBlitz", "description": "Online IDE", "icon": "⚡"},
+        {"url": "https://replit.com", "title": "Replit", "description": "Online IDE", "icon": "💻"}
+      ]
+    },
+    {
+      "id": "security",
+      "title": "Password & Security",
+      "description": "Vault & auth tools",
+      "links": [
+        {"url": "https://vault.bitwarden.com", "title": "Bitwarden", "description": "Password manager", "icon": "🔐"},
+        {"url": "https://1password.com", "title": "1Password", "description": "Password manager", "icon": "🔑"}
+      ]
+    },
+    {
+      "id": "paste",
+      "title": "Paste & Notes",
+      "description": "Code sharing",
+      "links": [
+        {"url": "https://privatebin.net", "title": "PrivateBin", "description": "Encrypted paste", "icon": "📋"},
+        {"url": "https://pastebin.com", "title": "Pastebin", "description": "Code pasting", "icon": "📌"},
+        {"url": "https://gist.github.com", "title": "Gist", "description": "Code snippets", "icon": "📄"}
+      ]
+    },
+    {
+      "id": "monitoring",
+      "title": "Monitoring",
+      "description": "Dashboards & status",
+      "links": [
+        {"url": "https://grafana.com", "title": "Grafana", "description": "Metrics dashboard", "icon": "📊"},
+        {"url": "https://status.1001.io", "title": "1001Tracklists", "description": "Music history", "icon": "🎵"}
+      ]
+    },
+    {
+      "id": "cloud",
+      "title": "Cloud & Infra",
+      "description": "Infrastructure",
+      "links": [
+        {"url": "https://console.aiven.io", "title": "Aiven", "description": "Database services", "icon": "☁️"},
+        {"url": "https://railway.app", "title": "Railway", "description": "Deployment platform", "icon": "🚂"}
+      ]
+    },
+    {
+      "id": "media",
+      "title": "Media & Entertainment",
+      "description": "Personal streaming",
+      "links": [
+        {"url": "https://www.amazon.com", "title": "Amazon", "description": "Shopping", "icon": "📚"},
+        {"url": "https://reddit.com", "title": "Reddit", "description": "News & discussion", "icon": "📰"},
+        {"url": "https://youtube.com", "title": "YouTube", "description": "Videos", "icon": "▶️"},
+        {"url": "https://netflix.com", "title": "Netflix", "description": "Streaming", "icon": "🎬"}
+      ]
+    },
+    {
+      "id": "tools",
+      "title": "Developer Tools",
+      "description": "Useful utilities",
+      "links": [
+        {"url": "https://regex101.com", "title": "Regex101", "description": "Regex tester", "icon": "🔧"},
+        {"url": "https://curl.trillworks.com", "title": "cURL Converter", "description": "cURL builder", "icon": "🔗"},
+        {"url": "https://jsonformatter.org", "title": "JSON Formatter", "description": "JSON tools", "icon": "🔍"},
+        {"url": "https://darkreader.org", "title": "Dark Reader", "description": "Dark mode", "icon": "🌙"},
+        {"url": "https://www.iplocation.net", "title": "IP Lookup", "description": "IP information", "icon": "🌐"}
+      ]
+    }
+  ]
+}
